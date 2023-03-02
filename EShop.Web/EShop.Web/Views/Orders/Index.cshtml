@@ -1,0 +1,69 @@
+﻿@using EShop.Domain.ViewModels;
+@model OrderViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Orders</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="mb-5">
+    <form asp-controller="Orders" asp-action="Index">
+        
+        <label>Date From: </label>
+        <input type="date" name="from" class="form-control" />
+        <label>Date To: </label>
+        <input type="date" name="to" class="form-control" />
+        <label>Username:</label> <select asp-for="usernameSearch" asp-items="@(new SelectList(ViewBag.Emails,"Id"))" name="username">
+            <option value="">All</option>
+
+
+        </select>
+
+
+
+
+        
+
+        <button class="btn btn-info" type="submit" value="Filter">
+
+            Filter
+        </button>
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Order Date
+            </th>
+            <th>
+                Order Id
+            </th>
+            <th>
+                Client email
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.allOrders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.Email)
+                </td>
+              <td><a asp-action="CreateInvoice" asp-route-orderId="@item.Id" class="btn btn-success">Create Invoice</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

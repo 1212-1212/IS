@@ -1,0 +1,12 @@
+C:\Users\gigo\Documents\EShop\EShop.Domain\bin\Debug\net6.0\EShop.Domain.deps.json
+C:\Users\gigo\Documents\EShop\EShop.Domain\bin\Debug\net6.0\EShop.Domain.dll
+C:\Users\gigo\Documents\EShop\EShop.Domain\bin\Debug\net6.0\EShop.Domain.pdb
+C:\Users\gigo\Documents\EShop\EShop.Domain\obj\Debug\net6.0\EShop.Domain.csproj.AssemblyReference.cache
+C:\Users\gigo\Documents\EShop\EShop.Domain\obj\Debug\net6.0\EShop.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gigo\Documents\EShop\EShop.Domain\obj\Debug\net6.0\EShop.Domain.AssemblyInfoInputs.cache
+C:\Users\gigo\Documents\EShop\EShop.Domain\obj\Debug\net6.0\EShop.Domain.AssemblyInfo.cs
+C:\Users\gigo\Documents\EShop\EShop.Domain\obj\Debug\net6.0\EShop.Domain.csproj.CoreCompileInputs.cache
+C:\Users\gigo\Documents\EShop\EShop.Domain\obj\Debug\net6.0\EShop.Domain.dll
+C:\Users\gigo\Documents\EShop\EShop.Domain\obj\Debug\net6.0\refint\EShop.Domain.dll
+C:\Users\gigo\Documents\EShop\EShop.Domain\obj\Debug\net6.0\EShop.Domain.pdb
+C:\Users\gigo\Documents\EShop\EShop.Domain\obj\Debug\net6.0\ref\EShop.Domain.dll

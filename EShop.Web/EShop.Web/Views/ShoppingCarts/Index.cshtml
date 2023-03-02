@@ -1,0 +1,122 @@
+﻿@using EShop.Service.Implementation;
+@using Microsoft.Extensions.Options;
+@model EShop.Domain.Models.ShoppingCart
+@inject IOptions<EShop.Domain.Settings.StripeSettings> Stripe
+@inject IShoppingCartContainsCarPartService _s
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row m-4">
+    <form asp-controller="ShoppingCarts" asp-action="MakePayment" method="post">
+        <article>
+            <script src="https://checkout.stripe.com/checkout.js"
+                    class="stripe-button"
+                    data-key="@Stripe.Value.PublishableKey"
+                    data-locale="auto"
+                    data-description="EShop Application Payment"
+                        data-amount=" @Model.ShoppingCartContainsCarParts.Sum(item => item.CarPart.Price * item.Quantity))) * 100"
+                        data-label="Pay $ @Model.ShoppingCartContainsCarParts.Sum(item => item.CarPart.Price * item.Quantity)">
+            </script>
+        </article>
+    </form>
+    </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               @* @Html.DisplayNameFor(model => model.CarPart.Type)*@
+                Type
+            </th>
+            <th>
+               @* @Html.DisplayNameFor(model => model.CarPart.Stage)*@
+                Stage
+            </th>
+            <th>
+               @* @Html.DisplayNameFor(model => model.CarPart.Brand)*@
+                Brand
+            </th>
+            <th>
+               @* @Html.DisplayNameFor(model => model.CarPart.Price) *@
+                Price
+            </th>
+            <th>
+                @*    @Html.DisplayNameFor(model => model.Quantity) *@
+                Quantity
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ShoppingCartContainsCarParts.Any())
+        {
+            @foreach (var item in Model.ShoppingCartContainsCarParts)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CarPart.Type.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CarPart.Stage.Stage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CarPart.Brand.BrandName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CarPart.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    
+                    <td>
+                        <form asp-action="Delete" asp-controller="ShoppingCarts" method="post">
+                            <input class="hidden" value="@item.CarPart.Id" name="carPartId">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+
+                        <form asp-action="Edit" asp-controller="ShoppingCarts" method="post">
+                            <input class="qu" type="number" name="quantity" value="@item.Quantity" onchange="this.form.submit()">
+                            <input class="hidden" value="@item.CarPart.Id" name="carPartId">
+                        </form>
+                    </td>
+                    
+                </tr>
+
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Empty Shopping Cart</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot class="thead-dark">
+        <th scope="col">Total Price:</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+         <th scope="col"></th>
+        <th scope="col"></th>
+    <th scope="col">
+            @Model.ShoppingCartContainsCarParts.Sum(item => item.CarPart.Price * item.Quantity)
+    </th>
+        
+    </tfoot>
+</table>
+</div>
+
+<style>
+    .qu 
+    {
+        width: 50px;
+        height: 50px;
+        top: -50px;
+    }
+    .hidden 
+    {
+        visibility: hidden;
+    }
+</style>

@@ -1,0 +1,123 @@
+﻿@using EShop.Domain.ViewModels;
+@using EShop.Service.Interface;
+
+@*@model IEnumerable<EShop.Domain.Models.CarPart>*@
+
+@model CarPartsViewModel
+
+@inject ICarPartBrandService _brandService;
+@inject ICarPartTypeService _typeService;
+@inject ICarPartStageService _stageService;
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1>All Car Parts</h1>
+<div class="mb-5">
+<form asp-controller="CarParts" asp-action="Index">
+    <p>
+        Search: <input type="text" name="SearchString" />
+ 
+    </p>
+    
+        <label>Brand Name:</label> <select asp-for="CarPartBrandId" asp-items="@(new SelectList(ViewBag.Brands,"Id","BrandName"))">
+                <option value="">All</option>
+        
+
+    </select>
+
+        <label>Stage: </label><select asp-for="CarPartStageId" asp-items="@(new SelectList(ViewBag.Stages,"Id","Stage"))">
+        <option value="">All</option>
+       
+
+    </select>
+        <label>Type: </label><select asp-for="CarPartTypeId" asp-items="@(new SelectList(ViewBag.Types,"Id","Type"))">
+        <option value="">All</option>
+       
+
+    </select>
+        
+    <button class="btn btn-info" type="submit" value="Filter">
+     
+       Filter
+        </button>
+</form>
+</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CarParts.ToList()[0].Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarParts.ToList()[0].Stage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarParts.ToList()[0].Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarParts.ToList()[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarParts.ToList()[0].Price)
+            </th>
+            <th>Action</th>
+          <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CarParts) {
+            var type = _typeService.Get(item.CarPartTypeId).Type;
+            var stage = _stageService.Get(item.CarPartStageId).Stage;
+            var brand = _brandService.Get(item.CarPartBrandId).BrandName;
+
+            <tr>
+               
+             <td>
+                @Html.DisplayFor(modelItem => item.Type.Type)
+            </td>
+               
+            <td>
+                @Html.DisplayFor(modelItem => item.Stage.Stage)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.Brand.BrandName)
+             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+          
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+            <td>
+                    <form asp-controller="CarParts" asp-action="AddToShoppingCart">
+                        <input class="hidden" value="@item.Id" name="carPartId">
+                        <button class="btn btn-info" class="addToScC" type="submit">Add to Shopping Cart</button>
+                    </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<style>
+    .addToScc
+    {
+        left: 200px;
+    }
+    .hidden
+    {
+        visibility: hidden;
+    }
+    </style>
